@@ -1,5 +1,3 @@
-var inputText;
-var	inputButton; 
 
 $(document).ready(function(){
 	startup();
@@ -7,25 +5,20 @@ $(document).ready(function(){
 	document.getElementById("search").addEventListener("click", function(){
 		addInput();
 	});
+
+    document.getElementById("closeSearch").addEventListener("click", function(){
+	    removeInput();
+	});
+
 });
 
 function startup(){
-	inputText = document.createElement("INPUT");
-	inputText.setAttribute("type", "text");
-	inputText.setAttribute("value", "");
-	inputText.setAttribute("placeholder", "Search..");
-	inputButton = document.createElement("BUTTON");
-	inputButton.setAttribute("type", "cancel");
-	inputButton.style.background = "none";
-	inputButton.style.border = "none";
-	inputButton.innerHTML = 'cancel';
 }
 
 function removeInput(){
-
+	$("#input-div").hide();
 }
 
 function addInput(){
-	$(".input-div").append(inputText);
-	$(".input-div").append(inputButton);
+	$("#input-div").show();
 }
