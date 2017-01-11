@@ -12,25 +12,32 @@ $(document).ready(function(){
 
 	document.getElementById('input').onkeydown = function(event) {
 		if (event.keyCode == 13) {
-			openW();
-			//alert('5');
+			getResoultsFromWikipedia(readInput(), printToConsole);
 		}
 	};
 });
 
 function startup(){
-}
+};
 
 function removeInput(){
 	$("#input-div").hide();
-}
+};
 
 function addInput(){
 	$("#input-div").show();
+};
+
+function readInput(){
+	return $('#input').val();
+};
+
+function printToConsole(data){
+	console.log(data);
 }
 
-function openW() {
-	var data = $('#input').val();
+function getResoultsFromWikipedia(data, callback) {
+	//var data = readInput();
 	//console.log(data);
 	$.ajax({
 		type: 'POST',
@@ -39,7 +46,8 @@ function openW() {
 		data: '{"some":"json"}',
 		dataType: 'jsonp',
 		success: function(responseData, textStatus, jqXHR) {
-			console.log(responseData[3]);
+			//console.log(responseData[3]);
+			callback(responseData[3]);
 		    //var value = responseData.someKey;
 		},
 		error: function (responseData, textStatus, errorThrown) {
