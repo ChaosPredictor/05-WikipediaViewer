@@ -30,48 +30,20 @@ function addInput(){
 }
 
 function openW() {
-	alert("data");
-	
+	var data = $('#input').val();
+	//console.log(data);
 	$.ajax({
 		type: 'POST',
-		url: 'http://en.wikipedia.org/w/api.php?action=opensearch&search=Albert%20Einstein&limit=10&namespace=0&format=json',
+		url: 'http://en.wikipedia.org/w/api.php?action=opensearch&search='+data+'&limit=15&namespace=0&format=json',
 		crossDomain: true,
 		data: '{"some":"json"}',
 		dataType: 'jsonp',
 		success: function(responseData, textStatus, jqXHR) {
-			console.log(responseData[0]);
-		    var value = responseData.someKey;
+			console.log(responseData[3]);
+		    //var value = responseData.someKey;
 		},
 		error: function (responseData, textStatus, errorThrown) {
 		    alert('POST failed.');
 	    }
 	});
-
-	//$.get("http://en.wikipedia.org/w/api.php?action=opensearch&search=Albert%20Einstein&limit=10&namespace=0&format=json", function(data){
-	//	console.log(data);     
-	//});
-
-	//var term = 'Albert Einstein'i;
-	//$.get('https://en.wikipedia.org/w/api.php?action=opensearch&search=Albert%20Einstein&limit=10&namespace=0&format=json', function(data){
-	//	console.log(data);
-	//	alert("work");     
-	//});
-	//$.ajax({
-	//	type:     "post",
-	//	data:     {id: 0},
-	//	cache:    false,
-	//	url:      ,"http://wikipedia.org/w/api.php?action=query&prop=extracts&exintro&explaintext&format=json&redirects&titles=San_Francisco,_CA"
-	//	dataType: "data",
-	//	error: function(xhr, status, error) {
-	//		var err = eval("(" + xhr.responseText + ")");
-	//		console.log(xhr);
-	//		alert("Error: " + xhr);
-	//	},
-	//	success: function () {
-	//		alert(" Done ! ");
-	//	}
-	//});
-	
-	//vat temp = "Albert Einstein";
-	//'https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch='+term+'&utf8='
 }
