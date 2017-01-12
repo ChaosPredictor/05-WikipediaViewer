@@ -39,7 +39,7 @@ function readInput(){
 };
 
 function printToConsole(data){
-	console.log(data);
+	addItemList(data[1][0],data[2][0],data[3][0]);
 };
 
 function getResoultsFromWikipedia(data, callback) {
@@ -67,7 +67,6 @@ function getResoultsFromWikipedia(data, callback) {
 function moveInputDivOut(){
 	$("#input-div").prependTo("body");
 	inputDivIn = false;
-	addItemList("title","text","link");
 };
 
 
@@ -87,5 +86,8 @@ function showMainDiv(){
 function addItemList(title,text,link){
 	var $item = $( ".list-item" ).clone()
 	$item.appendTo( ".list" );
+	$item.find("h3").text(title);
+	$item.find("p").text(text);
+	$item.find("a").attr("href", link);
 	$item.show();
 }
