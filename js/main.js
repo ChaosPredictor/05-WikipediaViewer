@@ -3,7 +3,7 @@ var inputDivIn = true;
 $(document).ready(function(){
 	startup();
 
-	document.getElementById("search").addEventListener("click", function(){
+	document.getElementById("searchButton").addEventListener("click", function(){
 		addInput();
 	});
 
@@ -11,9 +11,14 @@ $(document).ready(function(){
 	    removeInput();
 	});
 
+    document.getElementById("newSearchButton").addEventListener("click", function(){
+	    removeInput();
+	});
+
 	document.getElementById('input').onkeydown = function(event) {
 		if (event.keyCode == 13) {
-			getResoultsFromWikipedia(readInput(), printToConsole);
+			deleteListItems();
+			getResoultsFromWikipedia(readInput(), printResults);
 		}
 	};
 });
@@ -39,9 +44,16 @@ function readInput(){
 	return $('#input').val();
 };
 
-function printToConsole(data){
+function printResults(data){
+	var $origItem = $( ".list-item" ).first();
+	$("#titleResult").text(data[0]);
 	for (var i = 0; i < data[1].length ; i++) {
-		addItemList(data[1][i],data[2][i],data[3][i]);
+		$item = $origItem.clone();
+		$item.appendTo( ".list" );
+		$item.find("h3").text(data[1][i]);
+		$item.find("p").text(data[2][i]);
+		$item.find("a").attr("href", data[3][i]);
+		$item.show();
 	};
 };
 
@@ -68,31 +80,27 @@ function getResoultsFromWikipedia(data, callback) {
 };
 
 function moveInputDivOut(){
-	$("#input-div").prependTo("body");
+	//$("#input-div").prependTo("body");
 	inputDivIn = false;
 };
 
 
 function moveInputDivIn(){
-	$("#input-div").appendTo("#main-div");
+	//$("#input-div").appendTo("#main-div");
 	inputDivIn = true;
 };
 
 function hideMainDiv(){
 	$("#main-div").hide();
+	$("#searchResultTitle").show();
 };
 
 function showMainDiv(){
 	$("#main-div").show();
+	$("#searchResultTitle").hide();
 };
 
 function addItemList(title,text,link){
-	var $item = $( ".list-item" ).first().clone()
-	$item.appendTo( ".list" );
-	$item.find("h3").text(title);
-	$item.find("p").text(text);
-	$item.find("a").attr("href", link);
-	$item.show();
 };
 
 function deleteListItems(){

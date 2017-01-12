@@ -1,22 +1,27 @@
 body{
-  background-repeat: no-repeat;
+  background-repeat:no-repeat;
   background-size:cover;
+	background-color:lightgrey;
 }
 
 #main-div{
 	margin-top:150px;
-	background-color: rgba(34,67,56,0.5);
+	background-color: rgba(34,67,250,0.5);
 	min-width: 400px;
 	padding-top: 80px;
 	padding-bottom: 80px;
   border-radius: 20px;
 }
 
+.button{
+	color: red;
+	width: 150px;
+}
+
 input[type=text] {
-	width: 250px;
+	//width: 250px;
 	box-sizing: border-box;
 	border: 2px solid red;
-	border-radius: 3px;
 	font-size: 16px;
 	color: gray;
 	padding: 12px 20px 12px 40px;
@@ -27,6 +32,11 @@ input[type=text] {
   background-image: url(../img/search.png);
   background-position: 10px 10px;
   background-repeat: no-repeat;
+	//width: 50%;
+	margin-top: 60px; 
+	margin-left: auto;
+	margin-rigth: auto;
+	//vertical-align: middle;
 }
 
 input[type=text]:focus {
@@ -42,7 +52,11 @@ button[type=cancel] {
 }
 
 #input-div{
-	display:none;			
+	display:none;
+	margin: auto;
+  text-align: center;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .list-item{
@@ -50,4 +64,19 @@ button[type=cancel] {
 	min-width: 400px;
 	list-style-type: none;
 	display:none;
+	border-radius: 6px;
+	border: 1px solid blue;
+	margin-top: 10px;
+}
+
+#titleResult{
+ text-align: center;
+}
+
+#newSearchButton{
+	margin-top:30px;
+}
+
+#searchResultTitle {
+	display:none;			
 }
