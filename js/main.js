@@ -1,3 +1,4 @@
+var inputDivIn = true;
 
 $(document).ready(function(){
 	startup();
@@ -22,6 +23,11 @@ function startup(){
 
 function removeInput(){
 	$("#input-div").hide();
+	if (!inputDivIn) {
+		console.log("move in");
+		moveInputDivIn();
+		showMainDiv();
+	};
 };
 
 function addInput(){
@@ -34,7 +40,7 @@ function readInput(){
 
 function printToConsole(data){
 	console.log(data);
-}
+};
 
 function getResoultsFromWikipedia(data, callback) {
 	//var data = readInput();
@@ -47,11 +53,39 @@ function getResoultsFromWikipedia(data, callback) {
 		dataType: 'jsonp',
 		success: function(responseData, textStatus, jqXHR) {
 			//console.log(responseData[3]);
-			callback(responseData[3]);
+			callback(responseData);
 		    //var value = responseData.someKey;
 		},
 		error: function (responseData, textStatus, errorThrown) {
 		    alert('POST failed.');
 	    }
 	});
+	moveInputDivOut();
+	hideMainDiv();
+};
+
+function moveInputDivOut(){
+	$("#input-div").prependTo("body");
+	inputDivIn = false;
+	addItemList("title","text","link");
+};
+
+
+function moveInputDivIn(){
+	$("#input-div").appendTo("#main-div");
+	inputDivIn = true;
+};
+
+function hideMainDiv(){
+	$("#main-div").hide();
+};
+
+function showMainDiv(){
+	$("#main-div").show();
+};
+
+function addItemList(title,text,link){
+	var $item = $( ".list-item" ).clone()
+	$item.appendTo( ".list" );
+	$item.show();
 }

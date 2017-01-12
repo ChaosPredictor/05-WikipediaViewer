@@ -3,7 +3,7 @@ body{
   background-size:cover;
 }
 
-.main-div{
+#main-div{
 	margin-top:150px;
 	background-color: rgba(34,67,56,0.5);
 	min-width: 400px;
@@ -43,4 +43,11 @@ button[type=cancel] {
 
 #input-div{
 	display:none;			
+}
+
+.list-item{
+	background-color:ligthred;
+	min-width: 400px;
+	list-style-type: none;
+	display:none;
 }
