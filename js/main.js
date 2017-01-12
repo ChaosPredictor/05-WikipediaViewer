@@ -39,7 +39,9 @@ function readInput(){
 };
 
 function printToConsole(data){
-	addItemList(data[1][0],data[2][0],data[3][0]);
+	for (var i = 0; i < data[1].length ; i++) {
+		addItemList(data[1][i],data[2][i],data[3][i]);
+	};
 };
 
 function getResoultsFromWikipedia(data, callback) {
@@ -84,7 +86,7 @@ function showMainDiv(){
 };
 
 function addItemList(title,text,link){
-	var $item = $( ".list-item" ).clone()
+	var $item = $( ".list-item" ).first().clone()
 	$item.appendTo( ".list" );
 	$item.find("h3").text(title);
 	$item.find("p").text(text);
