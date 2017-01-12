@@ -24,9 +24,10 @@ function startup(){
 function removeInput(){
 	$("#input-div").hide();
 	if (!inputDivIn) {
-		console.log("move in");
+		//console.log("move in");
 		moveInputDivIn();
 		showMainDiv();
+		deleteListItems();
 	};
 };
 
@@ -92,4 +93,11 @@ function addItemList(title,text,link){
 	$item.find("p").text(text);
 	$item.find("a").attr("href", link);
 	$item.show();
-}
+};
+
+function deleteListItems(){
+	var $items = $(".list-item");
+	for (var i = 1; i < $items.length; i++) {
+		$items[i].remove();
+	}
+};
