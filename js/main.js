@@ -1,4 +1,5 @@
 var inputDivIn = true;
+var wordsArray = [];
 
 $(document).ready(function(){
 	startup();
@@ -15,14 +16,17 @@ $(document).ready(function(){
 	    removeInput();
 	});
 
-	$( "#tags" ).focus(function() {
+	$( "#autocomplete" ).focus(function() {
 		showAllFromContainer();
 	});
 	var data = "A AA AAA AAAA AAAAA AAAAAA Core Selectors Attributes Traversing Manipulation CSS Events Effects Ajax Utilities".split(" ");
-	$("#autocomplete").autocomplete({source:data, appendTo: "#container", autoFocus: true});
+	$("#autocomplete").autocomplete({source:function(request, response) {
+        var results = $.ui.autocomplete.filter(wordsArray, request.term);
+        response(results.slice(0, 8));
+    }, appendTo: "#container", autoFocus: true});
 	$('.autocomplete').focus(); 
     
-	$('#tags').on('autocompleteselect', function (e, ui) {
+	$('#autocomplete').on('autocompleteselect', function (e, ui) {
 		deleteListItems();
 		getResoultsFromWikipedia(ui.item.value, printResults);
     });
@@ -30,8 +34,27 @@ $(document).ready(function(){
 });
 
 function startup(){
+	readTextFile("words.txt");
 };
 
+function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                wordsArray = allText.split("\n");
+				//alert(allText);
+            }
+        }
+    }
+    rawFile.send(null);
+}
 function removeInput(){
 	$("#input-div").hide();
 	if (!inputDivIn) {
