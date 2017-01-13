@@ -15,12 +15,18 @@ $(document).ready(function(){
 	    removeInput();
 	});
 
-	document.getElementById('input').onkeydown = function(event) {
-		if (event.keyCode == 13) {
-			deleteListItems();
-			getResoultsFromWikipedia(readInput(), printResults);
-		}
-	};
+	$( "#tags" ).focus(function() {
+		showAllFromContainer();
+	});
+	var data = "A AA AAA AAAA AAAAA AAAAAA Core Selectors Attributes Traversing Manipulation CSS Events Effects Ajax Utilities".split(" ");
+	$("#autocomplete").autocomplete({source:data, appendTo: "#container", autoFocus: true});
+	$('.autocomplete').focus(); 
+    
+	$('#tags').on('autocompleteselect', function (e, ui) {
+		deleteListItems();
+		getResoultsFromWikipedia(ui.item.value, printResults);
+    });
+	
 });
 
 function startup(){
@@ -29,11 +35,19 @@ function startup(){
 function removeInput(){
 	$("#input-div").hide();
 	if (!inputDivIn) {
-		//console.log("move in");
 		moveInputDivIn();
 		showMainDiv();
 		deleteListItems();
+		hideAllFromContainer();
 	};
+};
+
+function hideAllFromContainer() {
+	$("#container").hide();	
+};
+
+function showAllFromContainer() {
+	$("#container").show();	
 };
 
 function addInput(){
@@ -58,8 +72,6 @@ function printResults(data){
 };
 
 function getResoultsFromWikipedia(data, callback) {
-	//var data = readInput();
-	//console.log(data);
 	$.ajax({
 		type: 'POST',
 		url: 'http://en.wikipedia.org/w/api.php?action=opensearch&search='+data+'&limit=15&namespace=0&format=json',
@@ -67,9 +79,7 @@ function getResoultsFromWikipedia(data, callback) {
 		data: '{"some":"json"}',
 		dataType: 'jsonp',
 		success: function(responseData, textStatus, jqXHR) {
-			//console.log(responseData[3]);
 			callback(responseData);
-		    //var value = responseData.someKey;
 		},
 		error: function (responseData, textStatus, errorThrown) {
 		    alert('POST failed.');
@@ -80,13 +90,11 @@ function getResoultsFromWikipedia(data, callback) {
 };
 
 function moveInputDivOut(){
-	//$("#input-div").prependTo("body");
 	inputDivIn = false;
 };
 
 
 function moveInputDivIn(){
-	//$("#input-div").appendTo("#main-div");
 	inputDivIn = true;
 };
 
