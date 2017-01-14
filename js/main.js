@@ -19,7 +19,6 @@ $(document).ready(function(){
 	$( "#autocomplete" ).focus(function() {
 		showAllFromContainer();
 	});
-	var data = "A AA AAA AAAA AAAAA AAAAAA Core Selectors Attributes Traversing Manipulation CSS Events Effects Ajax Utilities".split(" ");
 	$("#autocomplete").autocomplete({source:function(request, response) {
         var results = $.ui.autocomplete.filter(wordsArray, request.term);
         response(results.slice(0, 8));
@@ -28,8 +27,19 @@ $(document).ready(function(){
     
 	$('#autocomplete').on('autocompleteselect', function (e, ui) {
 		deleteListItems();
-		getResoultsFromWikipedia(ui.item.value, printResults);
+		if (ui.item.value) {
+			getResoultsFromWikipedia(ui.item.value, printResults);
+		} else {
+			getResoultsFromWikipedia($( "#autocomplete" ).val(), printResults);
+		}
     });
+
+	$('#autocomplete').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			getResoultsFromWikipedia($( "#autocomplete" ).val(), printResults);
+		}
+	});
 	
 });
 
